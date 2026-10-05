@@ -23,7 +23,25 @@ function render(){let c=document.getElementById('content');c.innerHTML=page==='d
 function dashboard(){let ex=expiring(),sv=products.reduce((a,p)=>a+p.stock*p.purchase,0),today=sales.filter(s=>s.date.slice(0,10)===new Date().toISOString().slice(0,10)).reduce((a,s)=>a+s.total,0),todayExp=expenses.filter(e=>e.date===todayKey()).reduce((a,e)=>a+Number(e.amount||0),0);return `<div class="cards"><div class="card"><div class="label">Today's Sales</div><div class="value">${money(today)}</div></div><div class="card"><div class="label">Today's Expenses</div><div class="value">${money(todayExp)}</div></div><div class="card"><div class="label">Stock Value</div><div class="value">${money(sv)}</div></div><div class="card"><div class="label">Low Stock</div><div class="value">${low().length}</div></div><div class="card"><div class="label">Expiry ≤ 30 days</div><div class="value">${ex.length}</div></div></div><div class="grid"><div class="panel"><h3>Low stock</h3>${low().slice(0,12).map(p=>`<p><b>${p.name}</b> — ${num(p.stock)} / min ${num(p.min)} <span class="danger">LOW</span></p>`).join('')||'<p class="muted">No low stock items</p>'}</div><div class="panel"><h3>Expiry attention</h3>${ex.slice(0,8).map(x=>`<div class="expiry"><b>${x.name}</b><br><span class="muted">${num(x.b.qty)} • ${x.b.expiry} • ${x.days<0?'Expired':x.days+' days left'}</span></div>`).join('')||'<p class="muted">No expiry batches yet.</p>'}</div></div>`}
 function inventory(){return `<div class="panel"><input class="search" placeholder="Search products..." oninput="filterInv(this.value)"><div id="invTable">${invTable(products)}</div></div>`}function invTable(a){return `<div class="inventory-table-wrap"><table><thead><tr><th class="inv-product">Product</th><th>Category</th><th>Stock</th><th>Min</th><th>Sale</th><th>Purchase</th><th>Status</th><th style="width:250px">Actions</th></tr></thead><tbody>${a.slice(0,200).map(p=>`<tr><td class="inv-product"><span style="display:inline-flex;align-items:center;gap:10px;max-width:100%">${productThumb(p)}<b>${p.name}</b></span></td><td>${p.category||'—'}</td><td><strong>${stockLabel(p)}</strong></td><td>${isWeightProduct(p)?num(p.min)+' kg':num(p.min)}</td><td>${priceLabel(p)}</td><td>${money(p.purchase)}</td><td>${p.stock<=p.min?'<span class="danger">LOW</span>':'<strong style="color:#166534">OK</strong>'}</td><td><div class="inv-actions"><button class="btn secondary" onclick="openStock('${p.id}')">＋ Add Stock</button><button class="imgbtn" onclick="openAdjust('${p.id}')">± Adjust</button><button class="imgbtn" onclick="openExpiryAssign('${p.id}')">⏰ Expiry</button><button class="imgbtn" onclick="chooseImage('${p.id}')">📷 Image</button></div></td></tr>`).join('')}</tbody></table></div>`} 
 function filterInv(q){q=q.toLowerCase();document.getElementById('invTable').innerHTML=invTable(products.filter(p=>(p.name+' '+p.category).toLowerCase().includes(q)))}
-function isWeightProduct(p){return !!(p&&((p.unit&&p.unit==='kg')||/\bKG\b/i.test(p.name)||Number(p.stock)%1!==0));}
+function isWeightProduct(p){
+  if(!p)return false;
+  if(p.unit==='pcs')return false;
+  if(p.unit==='kg')return true;
+  // Packaged oils sold as bottles/containers are pieces, not loose weight.
+  if(/\bOIL\b/i.test(p.name) && /\b(?:\d+(?:\.\d+)?\s*(?:ML|L))\b/i.test(p.name)) return false;
+  return /\bKG\b/i.test(p.name) || Number(p.stock)%1!==0;
+}
+function migrateProductUnits(){
+  products.forEach(p=>{
+    if(!p.unit){
+      if(/\bOIL\b/i.test(p.name) && /\b(?:\d+(?:\.\d+)?\s*(?:ML|L))\b/i.test(p.name)){
+        p.unit='pcs';
+      }
+    }
+  });
+  localStorage.setItem('ss_products',JSON.stringify(products));
+}
+migrateProductUnits();
 function stockLabel(p){return isWeightProduct(p)?num(p.stock)+' kg':num(p.stock)+' pcs'}
 function priceLabel(p){return isWeightProduct(p)?money(p.sale)+' / kg':money(p.sale)+' each'}
 function billing(){let subtotal=cart.reduce((a,i)=>a+i.lineTotal,0);return `<div class="billing"><div class="panel"><input class="search" placeholder="Search product..." oninput="searchBill(this.value)"><div id="billProducts" class="product-grid">${billProducts('')}</div></div><div class="panel"><h3>Current Bill</h3><div>${cart.length?cart.map(i=>{let p=products.find(x=>x.id===i.id),weight=i.weightGrams||0;return `<div style="padding:12px 0;border-bottom:1px solid #edf0f5"><b>${i.name}</b><div class="qty-controls"><button class="qty-btn" aria-label="Decrease quantity" onclick="removeCart('${i.id}')">−</button><span class="qty-value">${weight?formatWeight(weight):num(i.qty)}</span><button class="qty-btn" aria-label="Increase quantity" onclick="increaseCart('${i.id}')">+</button><span class="muted" style="margin-left:4px">× ${money(i.unitPrice)}${weight?' / kg':''}</span><strong style="margin-left:auto">${money(i.lineTotal)}</strong></div></div>`}).join(''):'<p class="muted">Select a product</p>'}</div><div style="font-size:28px;font-weight:800;text-align:right;margin:14px 0">${money(subtotal)}</div><button class="btn secondary" onclick="cart=[];render()">Clear</button> <button class="btn good" onclick="openCheckout()">PAY</button></div></div>`}
