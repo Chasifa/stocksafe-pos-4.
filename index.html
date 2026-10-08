@@ -32,6 +32,58 @@ header{display:block}
 .expense-summary{grid-template-columns:1fr 1fr}.expense-form{grid-template-columns:1fr}.expense-field.full{grid-column:auto}}
 
 .producteditmodal{display:none;position:fixed;inset:0;background:#0008;align-items:center;justify-content:center;padding:20px;z-index:40}.producteditmodal.open{display:flex}.producteditbox{background:#fff;color:#172033;padding:24px;border-radius:16px;width:100%;max-width:560px;max-height:90vh;overflow:auto;box-shadow:0 20px 60px #0003}.producteditbox h2{margin:0 0 6px;font-size:28px}.productedit-form{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:18px}.productedit-field{display:flex;flex-direction:column;gap:6px}.productedit-field.full{grid-column:1/-1}.productedit-field label{font-weight:800}.productedit-field input,.productedit-field select{width:100%;box-sizing:border-box;padding:13px 12px;border:2px solid #cbd5e1;border-radius:10px;background:#fff;color:#172033;font-size:16px}.productedit-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:18px}@media(max-width:600px){.productedit-form{grid-template-columns:1fr}.productedit-field.full{grid-column:auto}}
+/* v15 mobile billing refresh */
+.billing-mobile-summary{display:none}
+.bill-card{background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:10px;text-align:left;color:#172033;min-width:0;overflow:hidden;transition:.12s}
+.bill-card.selected{border:2px solid #0f766e;background:#ecfdf5}
+.bill-card .bill-card-name{font-size:15px;font-weight:800;line-height:1.2;min-height:38px;display:block;overflow-wrap:anywhere}
+.bill-card .bill-card-stock{font-size:12px;color:#15803d;margin-top:5px;display:block}
+.bill-card .bill-card-stock.low{color:#b91c1c}
+.bill-card .bill-card-row{display:flex;align-items:center;gap:7px;margin-top:9px}
+.bill-qty-input{width:58px;height:38px;box-sizing:border-box;border:1px solid #b8aee8;border-radius:8px;background:#fff;color:#172033;text-align:center;font-size:16px;font-weight:800;padding:4px}
+.bill-card-price{margin-left:auto;border:1px dashed #64748b;border-radius:8px;padding:7px 8px;font-weight:800;font-size:14px;white-space:nowrap}
+.bill-card .prodimg,.bill-card .emptyimg{height:86px;margin-bottom:8px}
+.bill-mobile-summary{position:fixed;left:0;right:0;bottom:68px;z-index:45;background:#fff;border-top:1px solid #dbe3ec;box-shadow:0 -5px 20px #0002;padding:9px 12px;align-items:center;gap:10px}
+.bill-mobile-summary .bill-mobile-total{font-size:18px;font-weight:900;flex:1}
+.bill-mobile-summary .bill-mobile-items{display:block;font-size:12px;color:#64748b}
+.bill-mobile-summary .btn{min-height:44px;padding:9px 18px;font-size:15px;font-weight:800}
+@media(max-width:520px){
+  .billing{display:block;margin-top:8px;padding-bottom:150px}
+  .billing>.panel:first-child{padding:12px}
+  .billing>.panel:last-child{margin-top:12px}
+  .billing .product-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+  .billing .prod{display:none}
+  .billing .bill-card{display:block}
+  .billing .category-chip{padding:8px 11px;font-size:13px}
+  .billing .search{font-size:16px;padding:13px}
+  .billing .panel:last-child{border-radius:14px}
+  .billing-mobile-summary{display:flex}
+  .bill-actions{display:flex}
+}
+@media(min-width:521px){.billing-mobile-summary{display:none!important}}
+
+.bill-sheet{display:none}
+@media(max-width:520px){
+  .bill-sheet{position:fixed;inset:0;z-index:80;background:#0008;align-items:flex-end;justify-content:center}
+  .bill-sheet.open{display:flex}
+  .bill-sheet-box{width:100%;max-height:78vh;background:#fff;border-radius:20px 20px 0 0;box-shadow:0 -10px 35px #0003;overflow:hidden;display:flex;flex-direction:column}
+  .bill-sheet-head{display:flex;align-items:center;justify-content:space-between;padding:16px 18px;border-bottom:1px solid #e5e7eb;position:sticky;top:0;background:#fff;z-index:1}
+  .bill-sheet-head h3{margin:0;font-size:20px}
+  .bill-sheet-close{border:0;background:#eef2f7;border-radius:999px;width:38px;height:38px;font-size:22px;cursor:pointer}
+  .bill-sheet-items{overflow:auto;padding:4px 18px 8px}
+  .bill-sheet-row{padding:14px 0;border-bottom:1px solid #edf0f5}
+  .bill-sheet-name{font-weight:800;font-size:16px;line-height:1.25}
+  .bill-sheet-controls{display:flex;align-items:center;gap:10px;margin-top:9px}
+  .bill-sheet-controls .qty-btn{width:40px;height:40px}
+  .bill-sheet-controls .qty-value{min-width:40px}
+  .bill-sheet-price{margin-left:auto;font-weight:800}
+  .bill-sheet-total{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;font-size:22px;font-weight:900;border-top:1px solid #e5e7eb}
+  .bill-sheet-actions{display:flex;gap:10px;padding:0 18px 18px;background:#fff}
+  .bill-sheet-actions .btn{flex:1;min-height:48px;font-size:16px;font-weight:800}
+  .billing{padding-bottom:92px}
+  .billing>.panel:last-child{display:none}
+}
+@media(min-width:521px){.bill-sheet{display:none!important}}
 </style></head><body><div class="app"><aside><div style="font-size:21px;font-weight:800;padding:0 8px 20px">Stock<span style="color:#7dd3fc">Safe</span></div><nav>
 <button class="active mobile-primary" data-page="dashboard">⌂ Home</button>
 <button class="mobile-primary" data-page="billing">▣ Bill</button>
@@ -107,19 +159,46 @@ migrateProductUnits();
 function stockLabel(p){return isWeightProduct(p)?num(p.stock)+' kg':num(p.stock)+' pcs'}
 function priceLabel(p){return isWeightProduct(p)?money(p.sale)+' / kg':money(p.sale)+' each'}
 let billingCategory='All';
+let billingSearch='';
+let billSheetOpen=false;
 function billingCategories(){
   const counts={};products.forEach(p=>{const c=normalizeCategory(p.category);counts[c]=(counts[c]||0)+1});
   const all=[['All',products.length],...CATEGORY_MASTER.map(c=>[c,counts[c]||0])];
   return `<div class="billing-categories">${all.map(([c,n])=>{const enc=encodeURIComponent(c);return `<button class="category-chip ${billingCategory===c?'active':''}" onclick="setBillingCategory(decodeURIComponent('${enc}'))">${escapeHtml(c)}<span class="category-count">(${n})</span></button>`}).join('')}</div>`;
 }
-function billing(){let subtotal=cart.reduce((a,i)=>a+i.lineTotal,0);return `<div class="billing"><div class="panel"><input class="search" placeholder="Search product..." oninput="searchBill(this.value)">${billingCategories()}<div id="billProducts" class="product-grid">${billProducts('',billingCategory)}</div></div><div class="panel"><h3>Current Bill</h3><div>${cart.length?cart.map(i=>{let p=products.find(x=>x.id===i.id),weight=i.weightGrams||0;return `<div style="padding:12px 0;border-bottom:1px solid #edf0f5"><b>${i.name}</b><div class="qty-controls"><button class="qty-btn" aria-label="Decrease quantity" onclick="removeCart('${i.id}')">−</button><span class="qty-value">${weight?formatWeight(weight):num(i.qty)}</span><button class="qty-btn" aria-label="Increase quantity" onclick="increaseCart('${i.id}')">+</button><span class="muted" style="margin-left:4px">× ${money(i.unitPrice)}${weight?' / kg':''}</span><strong style="margin-left:auto">${money(i.lineTotal)}</strong></div></div>`}).join(''):'<p class="muted">Select a product</p>'}</div><div style="font-size:28px;font-weight:800;text-align:right;margin:14px 0">${money(subtotal)}</div><button class="btn secondary" onclick="cart=[];render()">Clear</button> <button class="btn good" onclick="openCheckout()">PAY</button></div></div>`}
+function billItemCount(){return cart.reduce((a,i)=>{const p=products.find(x=>x.id===i.id);return a+(isWeightProduct(p)?(i.weightGrams||0):i.qty)},0)}
+function billSubtotal(){return cart.reduce((a,i)=>a+i.lineTotal,0)}
+function mobileBillSummary(){const subtotal=billSubtotal(),count=billItemCount();return `<div class="billing-mobile-summary"><div class="bill-mobile-total"><span class="bill-mobile-items">${cart.length?count+' item'+(count===1?'':'s'):'No items'}</span>${money(subtotal)}</div><button class="btn good" onclick="openBillSheet()">VIEW BILL</button><button class="btn good" onclick="openCheckout()">PAY</button></div>`}
+function billSheetMarkup(){const subtotal=billSubtotal();return `<div class="bill-sheet" id="billSheet" onclick="if(event.target===this)closeBillSheet()"><div class="bill-sheet-box"><div class="bill-sheet-head"><div><h3>Current Bill</h3><span class="muted">${cart.length?billItemCount()+' items':'No items'}</span></div><button class="bill-sheet-close" onclick="closeBillSheet()">×</button></div><div class="bill-sheet-items">${cart.length?cart.map(i=>{const p=products.find(x=>x.id===i.id),weight=i.weightGrams||0;return `<div class="bill-sheet-row"><div class="bill-sheet-name">${escapeHtml(i.name)}</div><div class="bill-sheet-controls"><button class="qty-btn" onclick="sheetRemove('${i.id}')">−</button><span class="qty-value">${weight?formatWeight(weight):num(i.qty)}</span><button class="qty-btn" onclick="sheetIncrease('${i.id}')">+</button><span class="muted">× ${money(i.unitPrice)}${weight?' / kg':''}</span><strong class="bill-sheet-price">${money(i.lineTotal)}</strong></div></div>`}).join(''):'<p class="muted" style="padding:18px 0">Select a product to start the bill.</p>'}</div><div class="bill-sheet-total"><span>Total</span><span>${money(subtotal)}</span></div><div class="bill-sheet-actions"><button class="btn secondary" onclick="clearBillFromSheet()">Clear</button><button class="btn good" onclick="openCheckout()">PAY</button></div></div></div>`}
+function billing(){const subtotal=billSubtotal();return `<div class="billing"><div class="panel"><input class="search" value="${escapeHtml(billingSearch)}" placeholder="Search product..." oninput="billingSearch=this.value;searchBill(this.value)">${billingCategories()}<div id="billProducts" class="product-grid">${billProducts(billingSearch,billingCategory)}</div></div><div class="panel"><h3>Current Bill</h3><div>${cart.length?cart.map(i=>{let p=products.find(x=>x.id===i.id),weight=i.weightGrams||0;return `<div style="padding:12px 0;border-bottom:1px solid #edf0f5"><b>${escapeHtml(i.name)}</b><div class="qty-controls"><button class="qty-btn" aria-label="Decrease quantity" onclick="removeCart('${i.id}')">−</button><span class="qty-value">${weight?formatWeight(weight):num(i.qty)}</span><button class="qty-btn" aria-label="Increase quantity" onclick="increaseCart('${i.id}')">+</button><span class="muted" style="margin-left:4px">× ${money(i.unitPrice)}${weight?' / kg':''}</span><strong style="margin-left:auto">${money(i.lineTotal)}</strong></div></div>`}).join(''):'<p class="muted">Select a product</p>'}</div><div style="font-size:28px;font-weight:800;text-align:right;margin:14px 0">${money(subtotal)}</div><button class="btn secondary" onclick="cart=[];render()">Clear</button> <button class="btn good" onclick="openCheckout()">PAY</button></div>${mobileBillSummary()}${billSheetMarkup()}</div>`}
+function openBillSheet(){if(!cart.length)return toast('Bill is empty');billSheetOpen=true;const el=document.getElementById('billSheet');if(el){el.classList.add('open');updateBillSheet();}}
+function closeBillSheet(){billSheetOpen=false;const el=document.getElementById('billSheet');if(el)el.classList.remove('open')}
+function updateBillSheet(){const el=document.getElementById('billSheet');if(!el)return;el.outerHTML=billSheetMarkup();const fresh=document.getElementById('billSheet');if(fresh)fresh.classList.add('open');}
+function refreshBillSheet(){if(!billSheetOpen)return;const el=document.getElementById('billSheet');if(!el)return;el.innerHTML=billSheetMarkup().replace(/^<div class="bill-sheet"[^>]*>|<\/div>$/g,'');el.classList.add('open')}
+function sheetIncrease(id){increaseCartNoRender(id);render();setTimeout(()=>openBillSheet(),0)}
+function sheetRemove(id){removeCartNoRender(id);render();if(cart.length)setTimeout(()=>openBillSheet(),0);else closeBillSheet()}
+function clearBillFromSheet(){cart=[];closeBillSheet();render()}
 function billProducts(q,category=billingCategory){
   q=(q||'').toLowerCase();
   let list=products.filter(p=>{
-    const cat=String(p.category||'General').trim()||'General';
+    const cat=normalizeCategory(p.category);
     return (category==='All'||cat===category) && p.name.toLowerCase().includes(q);
   });
-  return list.slice(0,60).map(p=>`<button class="prod" onclick="addCart('${p.id}')"><strong>${p.name}</strong>${productCardImage(p)}<span class="muted">${priceLabel(p)} • Stock ${stockLabel(p)}</span></button>`).join('')||'<p class="muted">No products found in this category</p>';
+  return list.slice(0,60).map(p=>{
+    const i=cart.find(x=>x.id===p.id); const qty=i?(isWeightProduct(p)?(i.weightGrams||0):i.qty):0; const low=p.stock<=p.min;
+    const val=isWeightProduct(p)?'':String(qty);
+    return `<div class="bill-card ${qty?'selected':''}">${productCardImage(p)}<span class="bill-card-name">${escapeHtml(p.name)}</span><span class="bill-card-stock ${low?'low':''}">Stock: ${stockLabel(p)}</span><div class="bill-card-row"><input class="bill-qty-input" type="number" min="0" step="1" value="${val}" placeholder="0" aria-label="Quantity for ${escapeHtml(p.name)}" onclick="event.stopPropagation();${isWeightProduct(p)?`openWeightModal('${p.id}')`:''}" onfocus="${isWeightProduct(p)?`openWeightModal('${p.id}');this.blur();`:''}" onchange="${isWeightProduct(p)?`openWeightModal('${p.id}')`: `setBillCardQty('${p.id}',this.value)`}" onkeydown="if(event.key==='Enter'){event.preventDefault();this.blur()}"/><span class="bill-card-price">${money(p.sale)}${isWeightProduct(p)?' /kg':' each'}</span></div></div>`;
+  }).join('')||'<p class="muted">No products found in this category</p>';
+}
+function setBillCardQty(id,value){
+  const p=products.find(x=>x.id===id); if(!p||isWeightProduct(p))return;
+  let q=Math.max(0,Math.floor(Number(value)||0));
+  if(q>p.stock){q=Math.floor(p.stock);toast('Cannot exceed available stock: '+num(p.stock));}
+  let i=cart.find(x=>x.id===id);
+  if(q===0){if(i)cart=cart.filter(x=>x.id!==id)}
+  else if(i){i.qty=q;i.lineTotal=q*i.unitPrice}
+  else cart.push({id:p.id,qty:q,name:p.name,unitPrice:p.sale,lineTotal:q*p.sale});
+  render();
 }
 function searchBill(q){document.getElementById('billProducts').innerHTML=billProducts(q,billingCategory)}
 function setBillingCategory(category){
@@ -138,8 +217,10 @@ function setWeight(g){document.getElementById('weightQty').value=String(Math.rou
 function updateWeightPreview(){const el=document.getElementById('weightPreview');const input=document.getElementById('weightQty');if(!el||!input)return;const p=products.find(x=>x.id===selectedId);const g=Math.round(Number(input.value||0));if(!p||!g||g<=0){el.textContent='Enter a weight to see the price.';return}const total=(g/1000)*Number(p.sale||0);el.textContent=`${g} g × ${money(p.sale)}/kg = ${money(total)}`}
 function addCart(id){let p=products.find(x=>x.id===id);if(!p||p.stock<=0)return toast('Out of stock');if(isWeightProduct(p)){openWeightModal(id);return}let i=cart.find(x=>x.id===id);if(i&&i.qty>=p.stock)return toast('Cannot exceed stock');if(i){i.qty++;i.lineTotal=i.qty*i.unitPrice}else cart.push({id,qty:1,name:p.name,unitPrice:p.sale,lineTotal:p.sale});render()}
 function addWeightToCart(){let p=products.find(x=>x.id===selectedId),g=Math.round(Number(document.getElementById('weightQty').value||0));if(!p||!Number.isFinite(g)||g<=0)return toast('Enter whole grams, for example 30');let kg=g/1000;let existing=cart.find(x=>x.id===p.id);let existingKg=existing?(existing.weightGrams/1000):0;if(existingKg+kg>p.stock+1e-9)return toast('Cannot exceed available stock: '+num(p.stock)+' kg');if(existing){existing.weightGrams+=g;existing.qty=existing.weightGrams/1000;existing.lineTotal=existing.weightGrams/1000*existing.unitPrice}else cart.push({id:p.id,name:p.name,qty:kg,weightGrams:g,unitPrice:p.sale,lineTotal:kg*p.sale});closeWeightModal();render()}
-function increaseCart(id){let p=products.find(x=>x.id===id),i=cart.find(x=>x.id===id);if(!p||!i)return;if(isWeightProduct(p)){let step=100;let current=i.weightGrams||0;if((current+step)/1000>p.stock+1e-9)return toast('Cannot exceed available stock: '+num(p.stock)+' kg');i.weightGrams+=step;i.qty=i.weightGrams/1000;i.lineTotal=i.qty*i.unitPrice}else{if(i.qty>=p.stock)return toast('Cannot exceed available stock: '+num(p.stock));i.qty++;i.lineTotal=i.qty*i.unitPrice}render()}
-function removeCart(id){let p=products.find(x=>x.id===id),i=cart.find(x=>x.id===id);if(!i)return;if(isWeightProduct(p)){i.weightGrams-=100;i.qty=i.weightGrams/1000;if(i.weightGrams<=0)cart=cart.filter(x=>x.id!==id);else i.lineTotal=i.qty*i.unitPrice}else{i.qty--;if(i.qty<=0)cart=cart.filter(x=>x.id!==id);else i.lineTotal=i.qty*i.unitPrice}render()}
+function increaseCartNoRender(id){let p=products.find(x=>x.id===id),i=cart.find(x=>x.id===id);if(!p||!i)return;if(isWeightProduct(p)){let step=100;let current=i.weightGrams||0;if((current+step)/1000>p.stock+1e-9)return toast('Cannot exceed available stock: '+num(p.stock)+' kg');i.weightGrams+=step;i.qty=i.weightGrams/1000;i.lineTotal=i.qty*i.unitPrice}else{if(i.qty>=p.stock)return toast('Cannot exceed available stock: '+num(p.stock));i.qty++;i.lineTotal=i.qty*i.unitPrice}}
+function removeCartNoRender(id){let p=products.find(x=>x.id===id),i=cart.find(x=>x.id===id);if(!i)return;if(isWeightProduct(p)){i.weightGrams-=100;i.qty=i.weightGrams/1000;if(i.weightGrams<=0)cart=cart.filter(x=>x.id!==id);else i.lineTotal=i.qty*i.unitPrice}else{i.qty--;if(i.qty<=0)cart=cart.filter(x=>x.id!==id);else i.lineTotal=i.qty*i.unitPrice}}
+function increaseCart(id){increaseCartNoRender(id);render()}
+function removeCart(id){removeCartNoRender(id);render()}
 let checkoutPayment='Cash';let checkoutDiscount=0;function openCheckout(){if(!cart.length)return toast('Bill is empty');checkoutPayment='Cash';checkoutDiscount=0;document.getElementById('discountAmount').value='0';document.getElementById('checkoutModal').classList.add('open');selectPayment('Cash');updateCheckoutSummary()}function closeCheckout(){document.getElementById('checkoutModal').classList.remove('open')}function setDiscount(v){checkoutDiscount=Math.max(0,Number(v)||0);document.getElementById('discountAmount').value=checkoutDiscount;updateCheckoutSummary()}function selectPayment(method){checkoutPayment=method;document.querySelectorAll('.paymethod').forEach(b=>b.classList.toggle('selected',b.dataset.method===method));}function updateCheckoutSummary(){let subtotal=cart.reduce((a,i)=>a+i.lineTotal,0);let d=Math.min(Math.max(0,Number(document.getElementById('discountAmount').value||0)),subtotal);checkoutDiscount=d;document.getElementById('checkoutSubtotal').textContent=money(subtotal);document.getElementById('checkoutDiscount').textContent=money(d);document.getElementById('checkoutNet').textContent=money(subtotal-d);document.getElementById('checkoutTotal').textContent=money(subtotal-d)}function completeCheckout(){if(!cart.length)return toast('Bill is empty');let subtotal=cart.reduce((a,i)=>a+i.lineTotal,0);let d=Math.min(Math.max(0,Number(document.getElementById('discountAmount').value||0)),subtotal);let net=subtotal-d;cart.forEach(i=>{let p=products.find(x=>x.id===i.id);let deduct=isWeightProduct(p)?i.weightGrams/1000:i.qty;p.stock-=deduct});sales.unshift({date:new Date().toISOString(),items:cart.map(i=>{let p=products.find(x=>x.id===i.id);return {...i,purchasePrice:Number(p?.purchase||0)}}),subtotal,discount:d,total:net,paymentMethod:checkoutPayment});save();cart=[];closeCheckout();toast('Sale saved • stock updated');render()}function checkout(){openCheckout()}
 function expiry(){let ex=expiring();return `<div class="cards"><div class="card"><div class="label">Expired</div><div class="value">${ex.filter(x=>x.days<0).length}</div></div><div class="card"><div class="label">≤ ${Number(settings.expiryUrgentDays)||7} days</div><div class="value">${ex.filter(x=>x.days>=0&&x.days<=(Number(settings.expiryUrgentDays)||7)).length}</div></div><div class="card"><div class="label">≤ ${Number(settings.expiryAlertDays)||30} days</div><div class="value">${ex.filter(x=>x.days>=0&&x.days<=(Number(settings.expiryAlertDays)||30)).length}</div></div><div class="card"><div class="label">Batches tracked</div><div class="value">${Object.values(batches).flat().length}</div></div></div><div class="panel" style="margin-top:16px"><h3>Expiry Center</h3>${ex.map(x=>`<div class="expiry"><b>${x.name}</b> — ${num(x.b.qty)}<br><span class="muted">Batch ${x.b.batch||'—'} • ${x.b.expiry} • ${x.days<0?'<span class="danger">Expired</span>':x.days+' days remaining'}</span></div>`).join('')||'<p class="muted">No expiry batches yet. Add one from Inventory.</p>'}</div>`}let salesPeriod='all', salesSearch='';
 let reportPeriod='month';
